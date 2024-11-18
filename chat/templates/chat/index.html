@@ -6,18 +6,16 @@
 
 
 {% block additional_css %}
-    <link rel="stylesheet" href="{% static 'results/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'chat/css/index.css' %}">
 {% endblock additional_css %}
 
 
 {% block content %}
-
-
-
 <div>
     <br>
     <p> chat here </p>
     <!-- TIME INTERVAL SELECT FORM   -->
 
 </div>
+{% include  './includes/chat_room.html' %}
 {% endblock content %}

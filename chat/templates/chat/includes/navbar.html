@@ -12,9 +12,11 @@
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropdown_button">Apps</a>
             <div class="dropdown_content">
-                {% for app in available_apps %}
-                    <a href="{% url 'detail' app_id=app %}">{{app}}</a>
-                {% endfor %}
+                <a href="{% url 'chat_room' room_name='Reports' %}">Reports</a>
+                <a href="{% url 'chat_room' room_name='MNT' %}">MNT</a>
+<!--                {% for app in available_apps %}-->
+<!--                    <a href="{% url 'chat_room' room_name=app %}">{{app}}</a>-->
+<!--                {% endfor %}-->
             </div>
         </li>
     <!-- Login button -->
