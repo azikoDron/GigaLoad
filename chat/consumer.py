@@ -1,17 +1,37 @@
 import json
+from channels.generic.websocket import AsyncWebsocketConsumer
 
-from channels.generic.websocket import WebsocketConsumer
 
+class ChatConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        self.room_groupName = "group_chat"
+        await self.channel_layer.group_add(
+            self.room_groupName,
+            self.channel_name
+        )
+        await self.accept()
 
-class ChatConsumer(WebsocketConsumer):
-    def connect(self):
-        self.accept()
+    async def disconnect(self, close_code):
+        await self.channel_layer.group_discard(
+            self.room_groupName,
+            self.channel_layer
+        )
 
-    def disconnect(self, close_code):
-        pass
-
-    def receive(self, text_data):
+    async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
+        username = text_data_json["username"]
+        time = text_data_json["time"]
+        await self.channel_layer.group_send(
+            self.room_groupName, {
+                "type": "send_message",
+                "message": message,
+                "username": username,
+                "time": time
+            })
 
-        self.send(text_data=json.dumps({"message": "message"}))
+    async def send_message(self, event):
+        message = event["message"]
+        username = event["username"]
+        time = event["time"]
+        await self.send(text_data=json.dumps({"message": message, "username": username, "time": time}))

@@ -74,6 +74,15 @@ WSGI_APPLICATION = 'GigaLoad.wsgi.application'
 
 ASGI_APPLICATION = "GigaLoad.asgi.application"
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
+LOGIN_REDIRECT_URL = "chat_page"
+LOGOUT_REDIRECT_URL = "login-user"
+
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
