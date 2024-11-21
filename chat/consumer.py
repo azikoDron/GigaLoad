@@ -5,6 +5,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_groupName = "group_chat"
+        #self.channel_name = "GigaLoad"
         await self.channel_layer.group_add(
             self.room_groupName,
             self.channel_name
@@ -19,6 +20,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
+        # print(text_data)
         message = text_data_json["message"]
         username = text_data_json["username"]
         time = text_data_json["time"]
@@ -27,8 +29,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 "type": "send_message",
                 "message": message,
                 "username": username,
-                "time": time
+                "time": time,
+                # "GigaLoad": "Hello"
             })
+        self.send(text_data="Hello")
 
     async def send_message(self, event):
         message = event["message"]
