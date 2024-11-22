@@ -1,3 +1,5 @@
+import asyncio
+
 from django.test import TestCase
 import json
 # Create your tests here.
@@ -5,17 +7,14 @@ import json
 from chat.consumer import ChatConsumer
 
 from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.generic import websocket
+#a = ChatConsumer().channel_receive
 
-a = AsyncWebsocketConsumer().connect()
+async def connect_to_server():
+    async with  connect("ws://localhost:8000") as websocket:
+        await websocket.send("Hello, Server!")
+        response = await websocket.recv()
+        print(f"Received: {response}")
 
 
-
-# async def receive(text_data):
-#     text_data_json = json.loads(text_data)
-#     # print(text_data)
-#     message = text_data_json["message"]
-#     username = text_data_json["username"]
-#     time = text_data_json["time"]
-#     await print(g.accept())
-#
-# receive("as")
+asyncio.get_event_loop().run_until_complete(connect_to_server())
