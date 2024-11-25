@@ -21,7 +21,11 @@
         </li>
     <!-- Login button -->
         {% if request.user.is_authenticated %}
-        <li style="float: right;"><a href="{% url 'logout-user' %}"><i class="fas fa-sign-out-alt"></i></a>
+        {% csrf_token %}
+        <li style="float: right;">
+            <form method="post" action="{% url 'logout-user' %}">
+                {% csrf_token %}
+                <button class="fas fa-sign-out-alt"></button></form></li>
         <li class=="user_login_button" style="float:right"><a href="/admin">{{ request.user|title }} </a></li>
         {%else%}
         <li class=="user_login_button" style="float:right"><a href="{% url 'login-user' %}">Login</a></li>

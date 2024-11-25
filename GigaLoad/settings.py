@@ -31,8 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'daphne',
     'chat',
+    # 'chat.apps.chatConfig',
+    'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,7 +84,6 @@ CHANNEL_LAYERS = {
 
 LOGIN_REDIRECT_URL = "chat_page"
 LOGOUT_REDIRECT_URL = "login-user"
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
